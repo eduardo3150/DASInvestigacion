@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_account_circle_24dp"
+            android:title="Mi perfil" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_star_24dp"
+            android:title="Favoritos" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_chat_24dp"
+            android:title="Comentarios" />
+    </group>
+
+    <item android:title="Configuracion">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Compartir" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_close_24dp"
+                android:title="Cerrar sesion" />
+        </menu>
+    </item>
+
+</menu>
