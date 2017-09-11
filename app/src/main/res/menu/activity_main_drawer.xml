@@ -8,12 +8,12 @@
             android:title="Mi perfil" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_star_24dp"
-            android:title="Favoritos" />
+            android:icon="@drawable/ic_chat_24dp"
+            android:title="Estadisticas" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_chat_24dp"
-            android:title="Comentarios" />
+            android:icon="@drawable/ic_star_24dp"
+            android:title="Autores" />
     </group>
 
     <item android:title="Configuracion">

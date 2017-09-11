@@ -1,6 +1,7 @@
 package com.chavez.eduardo.dasinvestigacion;
 
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,18 +10,24 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.animation.FastOutLinearInInterpolator;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.chavez.eduardo.dasinvestigacion.network.GameClient;
 import com.chavez.eduardo.dasinvestigacion.network.GameObject;
+import com.chavez.eduardo.dasinvestigacion.utils.BottomSheetDialogFragment;
+import com.chavez.eduardo.dasinvestigacion.utils.NetworkUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.transitionseverywhere.Fade;
@@ -30,10 +37,19 @@ import com.transitionseverywhere.TransitionManager;
 import com.transitionseverywhere.TransitionSet;
 import com.transitionseverywhere.extra.Scale;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class DetailActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
     private GameObject object;
+    private List<GameObject> received;
     private ImageView headerReceived, thumbnailImage;
     private TextView gameTitle, gameDescription, gameDeveloper, gameReleaseDate, gamePlatforms, developerLabel, platformsLabel, labelRelease;
+
     Bundle extras;
     private ViewGroup viewGroup;
     private ImageButton likeButton, browserButton;
@@ -43,13 +59,18 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
     private int mMaxScrollSize;
     private boolean mIsImageHidden;
     FloatingActionButton fab;
+    int id;
+
+    private GameClient client = new Retrofit.Builder()
+            .baseUrl(NetworkUtils.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build().create(GameClient.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         supportPostponeEnterTransition();
-
         viewGroup = (ViewGroup) findViewById(R.id.viewGroupContainer);
         headerReceived = (ImageView) findViewById(R.id.tab_header);
         thumbnailImage = (ImageView) viewGroup.findViewById(R.id.thumbnailPicture);
@@ -77,7 +98,7 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
             String transitionName = extras.getString("transition");
             headerReceived.setTransitionName(transitionName);
             Picasso.with(this)
-                    .load(object.getGame_image())
+                    .load(NetworkUtils.IMG_URL + object.getGame_image())
                     .noFade()
                     .into(headerReceived, new Callback() {
                         @Override
@@ -92,7 +113,7 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
                     });
         } else {
             Picasso.with(this)
-                    .load(object.getGame_image())
+                    .load(NetworkUtils.IMG_URL + object.getGame_image())
                     .noFade()
                     .into(headerReceived, new Callback() {
                         @Override
@@ -106,24 +127,20 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
                         }
                     });
         }
+
+        id = object.getId();
+
         workReceivedItem();
 
         //YAS
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                animate();
-            }
+        /** final Handler handler = new Handler();
+         handler.postDelayed(new Runnable() {
+        @Override public void run() {
+        animateInitialView();
+        }
         }, 250);
+         **/
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Editar", Snackbar.LENGTH_SHORT).show();
-            }
-        });
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -141,17 +158,55 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getItemFromNetwork(id);
+    }
+
+    private void getItemFromNetwork(int id) {
+        Call<List<GameObject>> call = client.getGame(String.valueOf(id));
+        call.enqueue(new retrofit2.Callback<List<GameObject>>() {
+            @Override
+            public void onResponse(Call<List<GameObject>> call, Response<List<GameObject>> response) {
+                if (response.isSuccessful()) {
+                    received = response.body();
+                    Log.d("Respuesta", received.get(0).toString());
+                    populateView(received.get(0));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<GameObject>> call, Throwable t) {
+                Log.d("Error", t.getLocalizedMessage());
+            }
+        });
+    }
+
+    private void populateView(final GameObject response) {
+        gameTitle.setText(response.getGame_name());
+        gameDescription.setText(response.getGame_description());
+        gameDeveloper.setText(response.getGame_developer());
+        gamePlatforms.setText(response.getPlatform());
+        gameReleaseDate.setText(response.getRelease_date());
+        animateInitialView();
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailActivity.this, EditActivity.class);
+                intent.putExtra("object", response);
+                startActivity(intent);
+            }
+        });
+    }
 
     private void workReceivedItem() {
         Picasso.with(this)
-                .load(object.getCover_image())
+                .load(NetworkUtils.IMG_URL + object.getCover_image())
                 .noFade()
                 .into(thumbnailImage);
-        gameTitle.setText(object.getGame_name());
-        gameDescription.setText(object.getGame_description());
-        gameDeveloper.setText(object.getGame_developer());
-        gamePlatforms.setText(object.getPlatform());
-        gameReleaseDate.setText(object.getRelease_date());
 
         likeButton.setOnClickListener(new View.OnClickListener() {
             boolean like;
@@ -176,7 +231,8 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
         });
     }
 
-    private void animate() {
+
+    private void animateInitialView() {
         TransitionSet set = new TransitionSet()
                 .addTransition(new Scale(0.7f))
                 .addTransition(new Fade())
@@ -255,4 +311,6 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
         super.onBackPressed();
 
     }
+
+
 }

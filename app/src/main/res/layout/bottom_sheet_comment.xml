@@ -1,109 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
     android:orientation="vertical"
-    app:behavior_peekHeight="?attr/actionBarSize"
-    android:background="@android:color/white"
-    app:layout_behavior="@string/bottom_sheet_behavior">
+    app:layout_behavior="@string/bottom_sheet_behavior"
+
+    >
+
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:paddingBottom="16dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:clickable="true"
         android:paddingEnd="16dp"
-        android:paddingStart="16dp">
+        android:paddingStart="16dp"
+        android:paddingTop="?actionBarSize">
 
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
-            android:elevation="4dp"
-            android:orientation="vertical"
             android:paddingTop="@dimen/activity_horizontal_margin">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
-
-                <TextView
-                    style="@style/TextAppearance.AppCompat.Headline"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Agregar comentario" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:alpha="0.12"
-                    android:background="@android:color/black" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
                     android:orientation="vertical">
 
-                    <android.support.design.widget.TextInputLayout
+                    <TextView
+                        style="@style/TextAppearance.AppCompat.Headline"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/AppTheme.new"
-                       >
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Agregar desarrollador"
+                        android:textColor="@android:color/white" />
 
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/email"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/prompt_email"
-                            android:inputType="textEmailAddress"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            style="@style/AppTheme.new"
-                            />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:alpha="0.2"
+                        android:background="@android:color/white" />
 
-                    </android.support.design.widget.TextInputLayout>
-
-                    <android.support.design.widget.TextInputLayout
+                    <LinearLayout
+                        android:id="@+id/formContainerGroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/AppTheme.new"
-                        >
+                        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="16dp"
+                        android:animateLayoutChanges="true"
+                        android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/password"
+
+                        <android.support.design.widget.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/prompt_password"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            style="@style/AppTheme.new"
-                            />
+                            android:textColorHint="@android:color/white">
 
-                    </android.support.design.widget.TextInputLayout>
+                            <EditText
+                                android:id="@+id/developerName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Nombre del desarrollador"
+                                android:inputType="text"
+                                android:textColor="@android:color/white" />
+
+                        </android.support.design.widget.TextInputLayout>
 
 
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/addDeveloper"
+                            style="@style/Widget.AppCompat.Button.Colored"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Actualizar" />
+                    </LinearLayout>
 
-                    <android.support.v7.widget.AppCompatButton
-                        android:id="@+id/addToList"
-                        style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Agregar" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                        android:alpha="0.12"
+                        android:background="@android:color/black" />
 
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                    android:alpha="0.12"
-                    android:background="@android:color/black" />
-
             </LinearLayout>
-        </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
     </FrameLayout>
-</android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

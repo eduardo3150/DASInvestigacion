@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.chavez.eduardo.dasinvestigacion.R;
 import com.chavez.eduardo.dasinvestigacion.network.GameObject;
+import com.chavez.eduardo.dasinvestigacion.utils.NetworkUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -45,7 +46,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         holder.platforms.setText(object.getPlatform());
 
         ViewCompat.setTransitionName(holder.imageView, object.getGame_name());
-        Picasso.with(context).load(object.getGame_image()).into(holder.imageView);
+        Picasso.with(context).load(NetworkUtils.IMG_URL+object.getGame_image()).into(holder.imageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

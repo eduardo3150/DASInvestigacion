@@ -45,6 +45,9 @@ public class GameObject implements Serializable {
     @SerializedName("platform")
     private String platform;
 
+    @SerializedName("category")
+    private String category;
+
     @SerializedName("cover_image")
     private String cover_image;
 
@@ -94,9 +97,17 @@ public class GameObject implements Serializable {
         return game_image;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
-        return "\nGameObject{" +
+        return "GameObject{" +
                 "id=" + id +
                 ", game_name='" + game_name + '\'' +
                 ", game_description='" + game_description + '\'' +
@@ -104,6 +115,7 @@ public class GameObject implements Serializable {
                 ", release_date='" + release_date + '\'' +
                 ", website='" + website + '\'' +
                 ", platform='" + platform + '\'' +
+                ", category='" + category + '\'' +
                 ", cover_image='" + cover_image + '\'' +
                 ", thumb_image='" + thumb_image + '\'' +
                 ", game_image='" + game_image + '\'' +

@@ -4,12 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    android:orientation="vertical"
-    app:behavior_peekHeight="?attr/actionBarSize"
-    app:layout_behavior="@string/bottom_sheet_behavior"
+    android:orientation="vertical">
 
-    >
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -19,7 +28,6 @@
         android:clickable="true"
         android:paddingEnd="16dp"
         android:paddingStart="16dp">
-
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -42,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         android:layout_marginTop="16dp"
-                        android:text="Agregar nuevo juego"
+                        android:text="Modificar un juego"
                         android:textColor="@android:color/white" />
 
                     <View
@@ -94,11 +102,10 @@
 
                         </android.support.design.widget.TextInputLayout>
 
-
                         <TextView
-                            android:layout_marginTop="8dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
                             android:text="Desarrollador"
                             android:textAppearance="?android:textAppearanceSmall"
                             android:textColor="@android:color/white" />
@@ -135,112 +142,109 @@
                             android:alpha="0.2"
                             android:background="@android:color/white" />
 
-                        <LinearLayout
-                            android:id="@+id/advancedContainer"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="16dp"
-                            android:layout_marginTop="16dp"
-                            android:orientation="vertical"
-                            android:visibility="gone">
-
-                            <android.support.design.widget.TextInputLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:textColorHint="@android:color/white">
-
-                                <EditText
-                                    android:id="@+id/newPlatform"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="Plataforma/s"
-                                    android:inputType="text"
-                                    android:textColor="@android:color/white" />
-                            </android.support.design.widget.TextInputLayout>
-
-                            <android.support.design.widget.TextInputLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:textColorHint="@android:color/white">
-
-                                <EditText
-                                    android:id="@+id/newReleaseDate"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="Fecha de lanzamiento"
-                                    android:inputType="text"
-                                    android:textColor="@android:color/white" />
-                            </android.support.design.widget.TextInputLayout>
-
-
-                            <android.support.design.widget.TextInputLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:textColorHint="@android:color/white">
-
-                                <EditText
-                                    android:id="@+id/newWebsite"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="Sitio Web"
-                                    android:inputType="text"
-                                    android:textColor="@android:color/white" />
-                            </android.support.design.widget.TextInputLayout>
-
-                            <android.support.design.widget.TextInputLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:textColorHint="@android:color/white">
-
-                                <EditText
-                                    android:id="@+id/newCategoria"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="Categoria"
-                                    android:inputType="text"
-                                    android:textColor="@android:color/white" />
-                            </android.support.design.widget.TextInputLayout>
-
-                            <android.support.v7.widget.AppCompatButton
-                                android:id="@+id/addPicture"
-                                style="@style/Widget.AppCompat.Button.Colored"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="Agregar Imagen" />
-
-                            <ImageView
-                                android:id="@+id/thumbnailRecibido"
-                                android:layout_width="200dp"
-                                android:layout_height="200dp"
-                                android:layout_gravity="center"
-                                android:visibility="gone" />
-
-                        </LinearLayout>
-
-
-                        <android.support.v7.widget.AppCompatButton
-                            android:id="@+id/addToList"
-                            style="@style/Widget.AppCompat.Button.Colored"
+                        <android.support.design.widget.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Agregar" />
+                            android:textColorHint="@android:color/white">
+
+                            <EditText
+                                android:id="@+id/newPlatform"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Plataforma/s"
+                                android:inputType="text"
+                                android:textColor="@android:color/white" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColorHint="@android:color/white">
+
+                            <EditText
+                                android:id="@+id/newReleaseDate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Fecha de lanzamiento"
+                                android:inputType="text"
+                                android:textColor="@android:color/white" />
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColorHint="@android:color/white">
+
+                            <EditText
+                                android:id="@+id/newWebsite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Sitio Web"
+                                android:inputType="text"
+                                android:textColor="@android:color/white" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColorHint="@android:color/white">
+
+                            <EditText
+                                android:id="@+id/newCategoria"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Categoria"
+                                android:inputType="text"
+                                android:textColor="@android:color/white" />
+                        </android.support.design.widget.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/updateGame"
+                            style="@style/Widget.AppCompat.Button.Colored"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:text="Actualizar" />
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/deleteItem"
+                            style="@style/Widget.AppCompat.Button.Colored"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:text="Eliminar" />
+
+
                     </LinearLayout>
 
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                        android:alpha="0.12"
-                        android:background="@android:color/black" />
-
                 </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    android:alpha="0.12"
+                    android:background="@android:color/black" />
+
+
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </FrameLayout>

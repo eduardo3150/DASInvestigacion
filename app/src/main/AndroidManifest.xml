@@ -3,6 +3,8 @@
     package="com.chavez.eduardo.dasinvestigacion">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +25,7 @@
         <activity
             android:name=".IntroActivity"
             android:label="@string/title_activity_intro"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
@@ -39,9 +41,10 @@
         </activity>
         <activity
             android:name=".AlternativeIntro"
-            android:label="@string/action_settings">
-
-        </activity>
+            android:label="@string/action_settings" />
+        <activity android:name=".EditActivity" />
+        <activity android:name=".StatisticsActivity" />
+        <activity android:name=".Developers"></activity>
     </application>
 
 </manifest>
